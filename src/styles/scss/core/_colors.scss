@@ -1,0 +1,16 @@
+$colors: (
+	neutral: (
+		lighter: #fcfcfc,
+		light: #ececec,
+		main: #acacac,
+		dark: #6c6c6c,
+		darker: #3c3c3c,
+	),
+	shadow: (
+		hover:
+			rgba(
+				$color: #000,
+				$alpha: 0.33,
+			),
+	),
+);

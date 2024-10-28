@@ -1,0 +1,29 @@
+#root {
+	display: flex;
+	justify-content: center;
+}
+
+.page-container {
+	max-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 32px;
+}
+
+.main-content {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+}
+
+.row-section {
+	display: flex;
+	flex-direction: row;
+}
+
+.col-section {
+	display: flex;
+	flex-direction: column;
+}

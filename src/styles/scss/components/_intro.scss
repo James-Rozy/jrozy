@@ -1,0 +1,22 @@
+#intro {
+	display: flex;
+	flex-direction: row;
+
+	padding-bottom: 48px;
+	border-bottom: 1px solid #999999;
+
+	.intro-text {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding-right: 128px;
+	}
+
+	.intro-img {
+		min-height: 320px;
+		min-width: 320px;
+		background-image: url('src/assets/waterfall-jimmer-sq.png');
+		background-size: contain;
+		border-radius: 50%;
+	}
+}
