@@ -1,3 +1,5 @@
+import WaterfallJimmer from '../assets/waterfall-jimmer-sq.png';
+
 export const Intro: React.FC = () => {
 	return (
 		<div id='intro' className='section'>
@@ -15,7 +17,7 @@ export const Intro: React.FC = () => {
 					</a>
 				</div>
 			</div>
-			<div className='intro-img'></div>
+			<img className='intro-img' src={WaterfallJimmer} />
 		</div>
 	);
 };
