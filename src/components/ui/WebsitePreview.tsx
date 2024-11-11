@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { ExternalLink, Globe } from 'lucide-react';
 
 interface WebsitePreviewProps {
@@ -20,8 +20,8 @@ const WebsitePreview: React.FC<WebsitePreviewProps> = ({
 	favicon,
 	className = '',
 }) => {
-	const [imageError, setImageError] = React.useState(false);
-	const [faviconError, setFaviconError] = React.useState(false);
+	const [imageError, setImageError] = useState(false);
+	const [faviconError, setFaviconError] = useState(false);
 
 	const getDomain = (url: string) => {
 		try {

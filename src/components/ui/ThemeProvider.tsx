@@ -1,5 +1,5 @@
 // ThemeSwitcher.tsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Sun, Moon } from 'lucide-react';
 
 export const ThemeSwitcher = () => {
