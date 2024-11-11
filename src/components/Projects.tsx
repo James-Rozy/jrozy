@@ -1,5 +1,8 @@
 import { WebsitePreview } from './ui/WebsitePreview';
 import DCCThumbnail from '../assets/dcc-thumbnail_11-11-24.png';
+import LinkStudyThumbnail from '../assets/opa-linkstudy-thumbnail_11-11-24.png';
+import Hh4mThumbnail from '../assets/hh4m-thumbnail_11-11-24.png';
+import MiSparkThumbnail from '../assets/mispark-thumbnail_11-11-24.png';
 
 interface ProjectsProps {
 	description: string;
@@ -23,18 +26,21 @@ export const Projects: React.FC<ProjectsProps> = ({ description }) => {
 					title='Office of Population Affairs (OPA) Link Study'
 					tasks='UI Design | Web Design | Front-End Development'
 					description='Enduring materials for the OPA Link Study which created interdisciplinary linkages between providers in a geographic area, enabling staff to learn about local resources and services and develop processes for screening and referrals'
+					imageUrl={LinkStudyThumbnail}
 				/>
 				<WebsitePreview
 					url='https://www.healthyheartsformichigan.org/'
 					title='Healthy Hearts for Michigan'
 					tasks='UI Design | Web Design | Front-End Development'
 					description='A statewide cooperative that helps primary care practices and their patients in enhancing the treatment of cardiovascular disease, hypertension, and smoking cessation.'
+					imageUrl={Hh4mThumbnail}
 				/>
 				<WebsitePreview
 					url='https://michigansparc.org/'
 					title='Michigan Sustained Patient-Centered Alcohol-Related Care'
 					tasks='UI Design | Web Design | Front-End Development'
 					description='An enduring materials website for the MI-SPARC initiative that acts as a technical resource center for providers to help recognize and treat unhealthy alcohol use.'
+					imageUrl={MiSparkThumbnail}
 				/>
 			</div>
 		</div>
