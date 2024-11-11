@@ -3,13 +3,19 @@ export const Navbar: React.FC = () => {
 		<nav className='navbar'>
 			<ul>
 				<li>
-					<a href='/#about'>About</a>
+					<a href='/#about' className='link-nav'>
+						About
+					</a>
 				</li>
 				<li>
-					<a href='/#projects'>Projects</a>
+					<a href='/#projects' className='link-nav'>
+						Projects
+					</a>
 				</li>
 				<li>
-					<a href='/#contact'>Contact</a>
+					<a href='/#contact' className='link-nav'>
+						Contact
+					</a>
 				</li>
 			</ul>
 		</nav>

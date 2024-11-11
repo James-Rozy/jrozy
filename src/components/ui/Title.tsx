@@ -4,7 +4,7 @@ interface TitleProps {
 
 export const Title: React.FC<TitleProps> = ({ title }) => {
 	return (
-		<a href='/' className='title-link'>
+		<a href='/' className='link link-title-minimal'>
 			{title}
 		</a>
 	);

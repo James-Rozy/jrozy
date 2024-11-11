@@ -1,0 +1,84 @@
+// Variables
+$light-bg: #f3f4f6;
+$light-hover: #e5e7eb;
+$dark-bg: #1f2937;
+$dark-hover: #374151;
+$sun-color: #f59e0b;
+$moon-color: #60a5fa;
+$transition-duration: 200ms;
+
+// Theme Variables
+:root {
+	--background: #ffffff;
+	--text: #000000;
+
+	&.dark {
+		--background: #1a1a1a;
+		--text: #ffffff;
+	}
+}
+
+.theme-switcher {
+	padding: 0.5rem;
+	border: none;
+	border-radius: 9999px;
+	cursor: pointer;
+	transition: background-color $transition-duration ease;
+
+	&.light {
+		background-color: $light-bg;
+
+		&:hover {
+			background-color: $light-hover;
+		}
+
+		.sun-icon {
+			transform: rotate(0deg);
+			opacity: 1;
+			color: $sun-color;
+		}
+
+		.moon-icon {
+			transform: rotate(90deg);
+			opacity: 0;
+		}
+	}
+
+	&.dark {
+		background-color: $dark-bg;
+
+		&:hover {
+			background-color: $dark-hover;
+		}
+
+		.sun-icon {
+			transform: rotate(-90deg);
+			opacity: 0;
+		}
+
+		.moon-icon {
+			transform: rotate(0deg);
+			opacity: 1;
+			color: $moon-color;
+		}
+	}
+}
+
+.icon-container {
+	position: relative;
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.sun-icon,
+.moon-icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	transition: all 300ms ease;
+
+	&.moon-icon {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+}
