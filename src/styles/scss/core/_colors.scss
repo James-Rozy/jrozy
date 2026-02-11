@@ -1,3 +1,12 @@
+// Anniversary card palette
+$cream: #fdf6ee;
+$blush: #e8c4b0;
+$rose: #c97b63;
+$wine: #7a3b35;
+$gold: #c9a84c;
+$charcoal: #2a2520;
+$warm-white: #fefaf5;
+
 $colors: (
 	neutral: (
 		lighter: #fcfcfc,
@@ -7,8 +16,7 @@ $colors: (
 		darker: #3c3c3c,
 	),
 	shadow: (
-		hover:
-			rgba(
+		hover: rgba(
 				$color: #000,
 				$alpha: 0.33,
 			),
