@@ -5,6 +5,11 @@
 	align-items: center;
 	margin-top: 24px;
 	margin-bottom: 32px;
+
+	@media (max-width: 768px) {
+		margin-top: 16px;
+		margin-bottom: 24px;
+	}
 }
 
 .header-container {
@@ -12,4 +17,15 @@
 	flex-direction: row;
 	align-items: center;
 	gap: 16px;
+
+	@media (max-width: 768px) {
+		// Swap order on mobile: hamburger menu on far right
+		.navbar {
+			order: 2;
+		}
+	}
+
+	@media (max-width: 480px) {
+		gap: 12px;
+	}
 }
