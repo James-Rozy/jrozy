@@ -1,0 +1,531 @@
+// Fonts: Cormorant Garamond + Mrs Saint Delafield loaded via index.html
+
+// ── Keyframes ──────────────────────────────────────────────────────
+
+@keyframes bdayFadeUp {
+	from { opacity: 0; transform: translateY(28px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bdayFadeIn {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@keyframes bdayOrbDrift {
+	from { transform: translate(0, 0) scale(1); }
+	to   { transform: translate(3%, 2%) scale(1.08); }
+}
+
+@keyframes bdayBtnPulse {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0); }
+	50%       { box-shadow: 0 0 0 10px rgba(245, 166, 35, 0.12); }
+}
+
+@keyframes bdayArrowBounce {
+	0%, 100% { transform: translateY(0); }
+	50%       { transform: translateY(4px); }
+}
+
+@keyframes bdayFadeUpBtn {
+	from { opacity: 0; transform: translateX(-50%) translateY(28px); }
+	to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes pinataWobble {
+	0%   { transform: rotate(0deg); }
+	18%  { transform: rotate(-14deg); }
+	36%  { transform: rotate(11deg); }
+	54%  { transform: rotate(-8deg); }
+	72%  { transform: rotate(5deg); }
+	86%  { transform: rotate(-2deg); }
+	100% { transform: rotate(0deg); }
+}
+
+@keyframes ringRevealIn {
+	from { opacity: 0; transform: translateY(24px) scale(0.96); }
+	to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+// ── Canvas ─────────────────────────────────────────────────────────
+
+.bdayCanvas {
+	position: fixed; top: 0; left: 0;
+	width: 100%; height: 100%;
+	z-index: 2;
+	pointer-events: none;
+}
+
+// ── Noise overlay ──────────────────────────────────────────────────
+
+.bdayNoise {
+	position: fixed; inset: 0;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+	background-size: 256px;
+	opacity: 0.35;
+	pointer-events: none;
+	z-index: 1;
+}
+
+// ── Glow orbs ──────────────────────────────────────────────────────
+
+.bdayGlowOrb {
+	position: fixed; border-radius: 50%;
+	filter: blur(80px); pointer-events: none; z-index: 3;
+	animation: bdayOrbDrift 8s ease-in-out infinite alternate;
+}
+.bdayGlowOrb1 {
+	width: 40vw; height: 40vw; top: -10%; left: -10%;
+	background: radial-gradient(circle, rgba(204, 41, 54, 0.18), transparent 70%);
+}
+.bdayGlowOrb2 {
+	width: 35vw; height: 35vw; bottom: -5%; right: -8%;
+	background: radial-gradient(circle, rgba(245, 166, 35, 0.15), transparent 70%);
+	animation-delay: -4s;
+}
+
+// ── Frame ──────────────────────────────────────────────────────────
+
+.bdayFrame {
+	position: fixed; inset: 1.5rem;
+	border: 1px solid rgba(245, 166, 35, 0.08);
+	z-index: 4; pointer-events: none;
+	animation: bdayFadeIn 2s 0.8s both;
+
+	&::before {
+		content: ''; position: absolute; inset: 4px;
+		border: 1px solid rgba(245, 166, 35, 0.04);
+	}
+}
+
+// ── Corner ornaments ───────────────────────────────────────────────
+
+.bdayOrnament {
+	position: fixed; font-size: 1.2rem;
+	color: rgba(245, 166, 35, 0.25); z-index: 5;
+	pointer-events: none;
+	animation: bdayFadeIn 2s 1s both;
+}
+.bdayOrnamentTL { top: 2rem; left: 2rem; }
+.bdayOrnamentTR { top: 2rem; right: 2rem; transform: rotate(90deg); }
+.bdayOrnamentBL { bottom: 2rem; left: 2rem; transform: rotate(270deg); }
+.bdayOrnamentBR { bottom: 2rem; right: 2rem; transform: rotate(180deg); }
+
+// ── Viewport + Slider ──────────────────────────────────────────────
+
+.bdayViewport {
+	position: fixed; inset: 0;
+	overflow: hidden; z-index: 6;
+}
+
+.bdaySlider {
+	display: flex; flex-direction: column;
+	width: 100%;
+	transition: transform 1.1s cubic-bezier(0.77, 0, 0.175, 1);
+
+	&.atCard {
+		transform: translateY(-100vh);
+	}
+}
+
+// ── Slide ──────────────────────────────────────────────────────────
+
+.bdaySlide {
+	width: 100%; height: 100vh; flex-shrink: 0;
+	display: flex; flex-direction: column;
+	align-items: center; justify-content: center;
+	position: relative;
+	padding: 24px 20px;
+	gap: 0;
+}
+
+// ── Hero text ──────────────────────────────────────────────────────
+
+.bdayHeroContent {
+	text-align: center;
+	pointer-events: none;
+	user-select: none;
+	margin-bottom: 14px;
+}
+
+.bdayEyebrow {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-size: clamp(0.65rem, 1.8vw, 1rem);
+	font-weight: 300; letter-spacing: 0.55em;
+	text-transform: uppercase;
+	color: rgba(245, 166, 35, 0.75);
+	margin-bottom: 0.5em;
+	animation: bdayFadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.bdayTitle {
+	font-family: 'Mrs Saint Delafield', cursive;
+	font-size: clamp(3rem, 10vw, 8rem);
+	color: #fff; line-height: 0.85;
+	text-shadow:
+		0 0 30px rgba(245, 166, 35, 0.8),
+		0 0 80px rgba(204, 41, 54, 0.4),
+		0 0 160px rgba(245, 166, 35, 0.2);
+	animation: bdayFadeUp 1.4s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.bdayDivider {
+	display: flex; align-items: center; justify-content: center;
+	gap: 1rem; margin: 0.75rem 0 0.6rem;
+	animation: bdayFadeUp 1.4s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.bdayDividerLine {
+	flex: 1; max-width: 60px; height: 1px;
+	background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.5), transparent);
+}
+.bdayDividerIcon { font-size: 1rem; }
+
+.bdayName {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-style: italic; font-weight: 300;
+	font-size: clamp(2.2rem, 7vw, 5.5rem);
+	color: rgba(255, 222, 170, 0.97); letter-spacing: 0.1em; line-height: 1;
+	text-shadow:
+		0 0 40px rgba(245, 166, 35, 0.55),
+		0 0 90px rgba(204, 41, 54, 0.2);
+	animation: bdayFadeUp 1.4s 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+// ── Piñata zone ────────────────────────────────────────────────────
+
+.pinataZone {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 185px;
+	margin-bottom: 8px;
+	animation: bdayFadeIn 1s 1.2s both;
+}
+
+.pinataClickable {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+
+	&:active .pinataSvgContainer {
+		filter: brightness(1.15);
+	}
+}
+
+.pinataSvgContainer {
+	width: 150px;
+	height: 158px;
+	transition: filter 0.15s ease;
+
+	@media (max-height: 650px) {
+		width: 120px;
+		height: 126px;
+	}
+}
+
+.pinataIdleWrap,
+.pinataHitWrap {
+	transform-origin: 50% 0%;
+	display: flex;
+	justify-content: center;
+}
+
+.pinataHitWrap {
+	animation: pinataWobble 0.45s ease-out forwards;
+}
+
+.pinataHint {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-style: italic; font-weight: 300;
+	font-size: clamp(0.82rem, 1.8vw, 1rem);
+	color: rgba(245, 166, 35, 0.72);
+	text-align: center;
+	margin-top: 10px;
+	letter-spacing: 0.04em;
+	pointer-events: none;
+}
+
+// ── Ring reveal ────────────────────────────────────────────────────
+
+.ringReveal {
+	animation: ringRevealIn 0.8s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ringCard {
+	position: relative;
+	width: min(440px, 88vw);
+	padding: clamp(1.4rem, 3.5vw, 2.2rem) clamp(1.4rem, 4.5vw, 2.8rem);
+	background: linear-gradient(
+		145deg,
+		rgba(30, 12, 4, 0.88) 0%,
+		rgba(12, 6, 2, 0.94) 60%,
+		rgba(20, 8, 2, 0.90) 100%
+	);
+	border: 1px solid rgba(245, 166, 35, 0.22);
+	border-radius: 4px;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	box-shadow:
+		0 0 0 1px rgba(245, 166, 35, 0.06) inset,
+		0 8px 60px rgba(0, 0, 0, 0.6),
+		0 0 80px rgba(245, 120, 30, 0.1);
+	text-align: center;
+
+	&::before {
+		content: '';
+		position: absolute; inset: 8px;
+		border: 1px solid rgba(245, 166, 35, 0.06);
+		border-radius: 2px;
+		pointer-events: none;
+	}
+	&::after {
+		content: '';
+		position: absolute; top: 0; left: 15%; right: 15%; height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.5), transparent);
+	}
+}
+
+.ringEyebrow {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-size: clamp(0.58rem, 1.4vw, 0.78rem);
+	font-weight: 300; letter-spacing: 0.5em; text-transform: uppercase;
+	color: rgba(245, 166, 35, 0.6);
+	margin-bottom: 0.9rem;
+}
+
+.ringTitle {
+	font-family: 'Mrs Saint Delafield', cursive;
+	font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+	color: #fff; line-height: 1.1;
+	text-shadow: 0 0 40px rgba(245, 166, 35, 0.6);
+	margin-bottom: 1.1rem;
+	font-weight: 400;
+}
+
+.ringCardDivider {
+	display: flex; align-items: center; justify-content: center;
+	gap: 0.75rem; margin-bottom: 1.1rem;
+}
+.ringCardDividerLine {
+	flex: 1; height: 1px;
+	background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.3), transparent);
+}
+.ringCardDividerOrnament {
+	font-size: 0.62rem; color: rgba(245, 166, 35, 0.5); letter-spacing: 0.3em;
+}
+
+.ringBody {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-style: italic; font-weight: 300;
+	font-size: clamp(0.88rem, 2.1vw, 1.08rem);
+	line-height: 1.85;
+	color: rgba(255, 222, 170, 0.85);
+	margin-bottom: 0.9rem;
+}
+
+.ringNote {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-weight: 300; font-style: italic;
+	font-size: clamp(0.78rem, 1.7vw, 0.92rem);
+	color: rgba(245, 166, 35, 0.65);
+	letter-spacing: 0.08em;
+}
+
+// ── Scroll button ──────────────────────────────────────────────────
+
+.bdayScrollBtn {
+	position: absolute; bottom: 2.8rem; left: 50%;
+	transform: translateX(-50%);
+	width: 52px; height: 52px;
+	border-radius: 50%;
+	border: 1px solid rgba(245, 166, 35, 0.4);
+	background: rgba(255, 255, 255, 0.04);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	cursor: pointer;
+	display: flex; align-items: center; justify-content: center;
+	animation: bdayFadeUpBtn 1.4s 1.3s both, bdayBtnPulse 2.6s 2.7s ease-in-out infinite;
+	transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+	outline: none;
+
+	&:hover {
+		border-color: rgba(245, 166, 35, 0.75);
+		background: rgba(245, 120, 30, 0.12);
+		box-shadow: 0 0 24px rgba(245, 120, 30, 0.25);
+	}
+
+	svg {
+		animation: bdayArrowBounce 2.6s 2.7s ease-in-out infinite;
+		pointer-events: none;
+		display: block;
+	}
+}
+
+// ── Love card ──────────────────────────────────────────────────────
+
+.bdayCard {
+	position: relative;
+	width: min(580px, 90vw);
+	padding: clamp(2rem, 5vw, 3.5rem) clamp(2rem, 6vw, 4rem);
+	background: linear-gradient(
+		145deg,
+		rgba(30, 10, 2, 0.84) 0%,
+		rgba(12, 5, 1, 0.94) 60%,
+		rgba(22, 8, 2, 0.90) 100%
+	);
+	border: 1px solid rgba(245, 166, 35, 0.18);
+	border-radius: 4px;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	box-shadow:
+		0 0 0 1px rgba(245, 120, 30, 0.06) inset,
+		0 8px 60px rgba(0, 0, 0, 0.55),
+		0 0 80px rgba(200, 60, 20, 0.08);
+	text-align: center;
+	opacity: 0;
+	transform: translateY(36px) scale(0.97);
+	transition:
+		opacity 0.9s 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+		transform 0.9s 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+	.bdaySlider.atCard & {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	&::before {
+		content: '';
+		position: absolute; inset: 8px;
+		border: 1px solid rgba(245, 166, 35, 0.06);
+		border-radius: 2px;
+		pointer-events: none;
+	}
+	&::after {
+		content: '';
+		position: absolute; top: 0; left: 15%; right: 15%; height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(245, 200, 100, 0.5), transparent);
+	}
+}
+
+.bdayCardTo {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-size: clamp(0.6rem, 1.4vw, 0.8rem);
+	font-weight: 300; letter-spacing: 0.55em; text-transform: uppercase;
+	color: rgba(245, 166, 35, 0.55);
+	margin-bottom: 1.4rem;
+}
+
+.bdayCardSalutation {
+	font-family: 'Mrs Saint Delafield', cursive;
+	font-size: clamp(2.2rem, 6vw, 3.8rem);
+	color: #fff; line-height: 1;
+	text-shadow: 0 0 40px rgba(245, 120, 30, 0.6);
+	margin-bottom: 1.8rem;
+	font-weight: 400;
+}
+
+.bdayCardDivider {
+	display: flex; align-items: center; justify-content: center;
+	gap: 0.75rem; margin-bottom: 1.8rem;
+}
+.bdayCardDividerLine {
+	flex: 1; height: 1px;
+	background: linear-gradient(90deg, transparent, rgba(245, 120, 30, 0.3), transparent);
+}
+.bdayCardDividerOrnament {
+	font-size: 0.68rem; color: rgba(245, 120, 30, 0.5); letter-spacing: 0.3em;
+}
+
+.bdayCardBody {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-style: italic; font-weight: 300;
+	font-size: clamp(0.95rem, 2.3vw, 1.18rem);
+	line-height: 1.9;
+	color: rgba(255, 222, 170, 0.85);
+
+	p + p { margin-top: 1.1em; }
+}
+
+.bdayCardClosingDivider {
+	display: flex; align-items: center; justify-content: center;
+	gap: 0.5rem; margin: 1.8rem 0 1.4rem;
+	color: rgba(245, 120, 30, 0.4); font-size: 0.75rem; letter-spacing: 0.3em;
+}
+
+.bdayCardClosing {
+	font-family: 'Cormorant Garamond', Georgia, serif;
+	font-weight: 300; font-style: italic;
+	font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+	color: rgba(245, 166, 35, 0.65); letter-spacing: 0.12em;
+}
+
+.bdayCardSignature {
+	font-family: 'Mrs Saint Delafield', cursive;
+	font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+	color: rgba(255, 222, 170, 0.92);
+	margin-top: 0.2rem;
+	text-shadow: 0 0 30px rgba(245, 120, 30, 0.4);
+	font-weight: 400;
+}
+
+// ── Back button ────────────────────────────────────────────────────
+
+.bdayBackBtn {
+	position: absolute; bottom: 2.8rem; left: 50%;
+	transform: translateX(-50%);
+	width: 44px; height: 44px;
+	border-radius: 50%;
+	border: 1px solid rgba(245, 166, 35, 0.3);
+	background: rgba(255, 255, 255, 0.03);
+	backdrop-filter: blur(8px);
+	cursor: pointer;
+	display: flex; align-items: center; justify-content: center;
+	opacity: 0;
+	transition:
+		opacity 0.5s 0.8s,
+		border-color 0.3s ease,
+		background 0.3s ease,
+		box-shadow 0.3s ease;
+	outline: none;
+
+	.bdaySlider.atCard & { opacity: 1; }
+
+	&:hover {
+		border-color: rgba(245, 166, 35, 0.65);
+		background: rgba(245, 120, 30, 0.1);
+		box-shadow: 0 0 20px rgba(245, 120, 30, 0.2);
+	}
+
+	svg { pointer-events: none; }
+}
+
+// ── Responsive ─────────────────────────────────────────────────────
+
+@media (max-height: 650px) {
+	.bdayHeroContent {
+		margin-bottom: 8px;
+	}
+	.bdayTitle {
+		font-size: 2.8rem;
+	}
+	.bdayName {
+		font-size: 2rem;
+	}
+	.bdayDivider {
+		margin: 0.4rem 0 0.3rem;
+	}
+	.pinataZone {
+		min-height: 150px;
+	}
+}
+
+@media (max-width: 480px) {
+	.bdayCard {
+		padding: 1.6rem 1.4rem;
+	}
+	.ringCard {
+		padding: 1.2rem 1.2rem;
+	}
+}

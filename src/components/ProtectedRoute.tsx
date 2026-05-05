@@ -2,13 +2,20 @@ import { useState, type FormEvent, type ReactNode } from 'react';
 
 interface ProtectedRouteProps {
 	children: ReactNode;
+	sessionKey?: string;
+	password?: string;
 }
 
-const SESSION_KEY = 'anniversary_authenticated';
+const DEFAULT_SESSION_KEY = 'anniversary_authenticated';
+const DEFAULT_PASSWORD = import.meta.env.VITE_ANNIVERSARY_PASSWORD;
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+	children,
+	sessionKey = DEFAULT_SESSION_KEY,
+	password: routePassword = DEFAULT_PASSWORD,
+}) => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-		() => sessionStorage.getItem(SESSION_KEY) === 'true',
+		() => sessionStorage.getItem(sessionKey) === 'true',
 	);
 	const [password, setPassword] = useState<string>('');
 	const [error, setError] = useState<string>('');
@@ -16,8 +23,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 	const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
 		e.preventDefault();
 
-		if (password === import.meta.env.VITE_ANNIVERSARY_PASSWORD) {
-			sessionStorage.setItem(SESSION_KEY, 'true');
+		if (password === routePassword) {
+			sessionStorage.setItem(sessionKey, 'true');
 			setIsAuthenticated(true);
 			setError('');
 		} else {
