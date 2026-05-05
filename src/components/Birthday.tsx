@@ -18,14 +18,14 @@ interface Particle {
 
 const PALETTE: [number, number, number][] = [
 	[0.80, 0.16, 0.21], // fiesta red
-	[0.17, 0.55, 0.35], // mexico green
-	[0.96, 0.65, 0.14], // marigold gold
-	[0.91, 0.39, 0.04], // burnt orange
-	[1.00, 0.84, 0.10], // bright yellow
-	[0.95, 0.25, 0.42], // hot pink
-	[1.00, 0.97, 0.80], // warm cream
-	[0.48, 0.18, 0.55], // purple
-	[0.10, 0.44, 0.65], // sky blue
+	[0.10, 0.50, 0.30], // mexico green
+	[0.75, 0.45, 0.00], // amber gold
+	[0.82, 0.32, 0.03], // burnt orange
+	[0.62, 0.52, 0.00], // olive yellow
+	[0.78, 0.08, 0.32], // deep pink
+	[0.42, 0.14, 0.52], // purple
+	[0.08, 0.38, 0.62], // sky blue
+	[0.52, 0.08, 0.08], // dark crimson
 ];
 
 const MAX = 4000;
@@ -189,7 +189,7 @@ const Birthday: FC = () => {
 		const prevBg = document.body.style.background;
 		document.body.style.overflow = 'hidden';
 		document.body.style.background =
-			'radial-gradient(ellipse at 50% 60%, #1a0900 0%, #0c0400 45%, #010100 100%)';
+			'radial-gradient(ellipse at 25% 20%, rgba(255, 210, 160, 0.28) 0%, transparent 55%), radial-gradient(ellipse at 78% 80%, rgba(160, 230, 190, 0.22) 0%, transparent 55%), #fefaf5';
 
 		const canvas = canvasRef.current;
 		if (!canvas) return;
@@ -388,11 +388,12 @@ const Birthday: FC = () => {
 			<div className="bdayNoise" />
 			<div className="bdayGlowOrb bdayGlowOrb1" />
 			<div className="bdayGlowOrb bdayGlowOrb2" />
+			<div className="bdayGlowOrb bdayGlowOrb3" />
 			<div className="bdayFrame" />
-			<span className="bdayOrnament bdayOrnamentTL">❧</span>
-			<span className="bdayOrnament bdayOrnamentTR">❧</span>
-			<span className="bdayOrnament bdayOrnamentBL">❧</span>
-			<span className="bdayOrnament bdayOrnamentBR">❧</span>
+			<span className="bdayOrnament bdayOrnamentTL">💀</span>
+			<span className="bdayOrnament bdayOrnamentTR">💀</span>
+			<span className="bdayOrnament bdayOrnamentBL">💀</span>
+			<span className="bdayOrnament bdayOrnamentBR">💀</span>
 
 			<div className="bdayViewport">
 				<div className={`bdaySlider${atCard ? ' atCard' : ''}`}>
@@ -458,7 +459,7 @@ const Birthday: FC = () => {
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none">
 								<path
 									d="M4 7L10 13L16 7"
-									stroke="rgba(245,166,35,0.85)"
+									stroke="rgba(100,45,8,0.75)"
 									strokeWidth="1.5"
 									strokeLinecap="round"
 									strokeLinejoin="round"
@@ -509,7 +510,7 @@ const Birthday: FC = () => {
 							<svg width="18" height="18" viewBox="0 0 20 20" fill="none">
 								<path
 									d="M16 13L10 7L4 13"
-									stroke="rgba(245,166,35,0.7)"
+									stroke="rgba(100,45,8,0.75)"
 									strokeWidth="1.5"
 									strokeLinecap="round"
 									strokeLinejoin="round"
