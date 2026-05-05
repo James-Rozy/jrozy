@@ -159,7 +159,7 @@
 	font-weight: 300; letter-spacing: 0.55em;
 	text-transform: uppercase;
 	color: rgba(140, 65, 8, 0.82);
-	margin-bottom: 0.5em;
+	margin-bottom: 1.5rem;
 	animation: bdayFadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -381,18 +381,14 @@
 		opacity 0.9s 0.35s cubic-bezier(0.16, 1, 0.3, 1),
 		transform 0.9s 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 
+	outline: 1px solid rgba(180, 60, 40, 0.06);
+	outline-offset: -8px;
+
 	.bdaySlider.atCard & {
 		opacity: 1;
 		transform: translateY(0) scale(1);
 	}
 
-	&::before {
-		content: '';
-		position: absolute; inset: 8px;
-		border: 1px solid rgba(180, 60, 40, 0.06);
-		border-radius: 2px;
-		pointer-events: none;
-	}
 	&::after {
 		content: '';
 		position: absolute; top: 0; left: 15%; right: 15%; height: 1px;

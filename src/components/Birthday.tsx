@@ -401,14 +401,14 @@ const Birthday: FC = () => {
 					{/* ── Hero Slide ── */}
 					<section className="bdaySlide">
 						<div className="bdayHeroContent">
-							<p className="bdayEyebrow">Feliz Cinco de Mayo</p>
+							<p className="bdayEyebrow">Feliz Cinco de Mego</p>
 							<h1 className="bdayTitle">Happy Birthday</h1>
 							<div className="bdayDivider">
 								<span className="bdayDividerLine" />
 								<span className="bdayDividerIcon">🎉</span>
 								<span className="bdayDividerLine" />
 							</div>
-							<p className="bdayName">Mego</p>
+							<p className="bdayName">Meghan</p>
 						</div>
 
 						<div className="pinataZone">
