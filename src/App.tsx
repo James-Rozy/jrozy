@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { Intro } from './components/Intro';
 import { Projects } from './components/Projects';
 import Anniversary from './components/Anniversary';
+import Birthday from './components/Birthday';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 const aboutMessage =
@@ -33,6 +34,17 @@ export const App: React.FC = () => {
 				element={
 					<ProtectedRoute>
 						<Anniversary />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path='/birthday'
+				element={
+					<ProtectedRoute
+						sessionKey="birthday_authenticated"
+						password={import.meta.env.VITE_BIRTHDAY_PASSWORD}
+					>
+						<Birthday />
 					</ProtectedRoute>
 				}
 			/>
